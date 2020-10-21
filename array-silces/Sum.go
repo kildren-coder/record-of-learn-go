@@ -8,13 +8,23 @@ func Sum(numbers []int) int {
 	return sum
 }
 
-func SumAll(numbersToSum ...[]int) (sums []int) {
-	lengthOfNumbers := len(numbersToSum)
+func SumAll(numbersToSum ...[]int) []int {
 	var sums []int
 
 	for _, numbers := range numbersToSum {
 		sums = append(sums, Sum(numbers))
 	}
 
-	return
+	return sums
+}
+
+func SumAllTails(numbersToSum ...[]int) []int {
+	var sums []int
+
+	for _, numbers := range numbersToSum {
+		tail := numbers[1:]
+		sums = append(sums, Sum(tail))
+	}
+
+	return sums
 }
