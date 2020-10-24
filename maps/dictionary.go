@@ -54,6 +54,10 @@ func (d Dictionary) Update(word, definition string) error {
 	return nil
 }
 
+func (d Dictionary) Delete(word string) {
+	delete(d, word)
+}
+
 /*
 func Search(dictionary map[string]string, word string) string{
 	return dictionary[word]
