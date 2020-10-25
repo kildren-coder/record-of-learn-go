@@ -21,12 +21,14 @@ func TestCheckWebsites(t *testing.T) {
 
 	actualResults := CheckWebsites(mockWebsiteChecker, websites)
 
-	want := len(websites)
-	got := len(actualResults)
+	//want := len(websites)
+	//got := len(actualResults)
 
+	/*
 	if want != got {
 		t.Fatalf("Wanted %v, got %v", want, got)
 	}
+	*/
 
 	expectedResults := map[string]bool {
 		"http://google.com":	true,
