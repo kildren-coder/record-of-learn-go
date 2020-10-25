@@ -27,9 +27,6 @@ func walk(x interface{}, fn func(input string)) {
 		}
 	}
 
-	for i := 0; i < numberOfValues; i++ {
-		walk(getField(i).Interface(), fn)
-	}
 }
 
 func getValue(x interface{}) reflect.Value {
