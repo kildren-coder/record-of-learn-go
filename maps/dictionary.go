@@ -63,3 +63,6 @@ func Search(dictionary map[string]string, word string) string{
 	return dictionary[word]
 }
 */
+
+//https://studygolang.gitbook.io/learn-go-with-tests/go-ji-chu/maps#shou-xian-bian-xie-ce-shi-4
+//https://github.com/studygolang/learn-go-with-tests/blob/master/maps.md#write-the-test-first-4
