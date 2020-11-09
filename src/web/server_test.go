@@ -7,13 +7,32 @@ import (
 	"testing"
 )
 
+type StubPlayerStore struct {
+	scores map[string] int
+}
+
+func (s *StubPlayerStore) GetPlayerScore(name string) int {
+	score := s.scores[name]
+	return score
+}
+
+
 func TestServer(t *testing.T) {
+
+	store := StubPlayerStore{
+		map[string]int{
+			"Pepper":	20,
+			"Floyd":	10,
+		},
+	}
+
+	server := &PlayerServer{&store}
+
 	t.Run("returns Pepper's score", func(t *testing.T) {
 		request := newGetScoreRequest("Pepper")
 		response := httptest.NewRecorder()
 
-		PlayerServer(response, request)
-
+		server.ServeHTTP(response, request)
 
 		assertResponseBody(t, response.Body.String(), "20")
 
@@ -23,7 +42,7 @@ func TestServer(t *testing.T) {
 		request := newGetScoreRequest("Floyd")
 		response := httptest.NewRecorder()
 
-		PlayerServer(response, request)
+		server.ServeHTTP(response, request)
 
 		assertResponseBody(t, response.Body.String(), "10")
 	})
@@ -37,6 +56,7 @@ func newGetScoreRequest(name string) *http.Request {
 func assertResponseBody(t *testing.T, got, want string) {
 	t.Helper()
 	if got != want {
-		t.Error("response body is wrong, got '%s' want '%s', got, want")
+		t.Errorf("response body is wrong, got '%s' want '%s'", got, want)
+
 	}
 }
