@@ -74,7 +74,7 @@ func TestStoreWins(t *testing.T) {
 
 	t.Run("it returns accepted on POST", func(t *testing.T) {
 
-		request, _ := http.NewRequest(http.MethodGet, "/players/Pepper", nil)
+		request, _ := http.NewRequest(http.MethodPost, "/players/Pepper", nil)
 		response := httptest.NewRecorder()
 
 		server.ServeHTTP(response, request)
