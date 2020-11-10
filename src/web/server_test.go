@@ -12,7 +12,9 @@ type StubPlayerStore struct {
 }
 
 func (s *StubPlayerStore) GetPlayerScore(name string) int {
+
 	score := s.scores[name]
+	//fmt.Printf("%s %d %d", name, s.scores[name], score)
 	return score
 }
 
@@ -61,6 +63,23 @@ func TestServer(t *testing.T) {
 		if got != want {
 			t.Errorf("got status %d want %d", got, want)
 		}
+	})
+}
+
+func TestStoreWins(t *testing.T) {
+	store := StubPlayerStore{
+		map[string]int{},
+	}
+	server := &PlayerServer{&store}
+
+	t.Run("it returns accepted on POST", func(t *testing.T) {
+
+		request, _ := http.NewRequest(http.MethodGet, "/players/Pepper", nil)
+		response := httptest.NewRecorder()
+
+		server.ServeHTTP(response, request)
+
+		assertStatus(t, response.Code, http.StatusAccepted)
 	})
 }
 
